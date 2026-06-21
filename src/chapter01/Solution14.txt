@@ -1,0 +1,14 @@
+No, break is not needed and is prohibited in such constructs. This applies to both the switch statement
+and the switch expression.
+
+Why is break not used in a switch with an arrow?
+
+1. In a switch statement with an arrow
+Each branch of the form case "N" -> ... is self-contained. After executing the code to the right of the arrow,
+control automatically exits the switch; fall-through is impossible. Therefore, break is simply not required here,
+and if you attempt to insert it, the compiler will report an error (e.g., "unexpected break").
+
+2. In a switch expression with an arrow
+Here, each branch returns a value (to the right of the arrow), and break is also not allowed.
+To return a value in an expression, you do not use break, but either an implicit return in the form -> value,
+or the yield keyword in the colon-based block form.
