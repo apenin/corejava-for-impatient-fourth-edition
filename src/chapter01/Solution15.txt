@@ -1,0 +1,49 @@
+In Java, fall-through can be useful when several branches need to perform an accumulating set of actions – that is,
+each subsequent branch does everything the previous one did, plus something of its own.
+Without fall-through, such code would either have to be duplicated, or extracted into separate methods with nontrivial logic.
+Listing multiple labels separated by commas doesn’t help here, because it applies the same action to different values,
+rather than adding a new action.
+
+### Example: Message Severity Levels
+
+Imagine that depending on the error level, we need to perform a different amount of work:
+- `INFO` – just log the message.
+- `WARNING` – log the message and show a warning to the user.
+- `CRITICAL` – log the message, show a warning, and send an alert to the administrator.
+
+With fall-through, this looks natural:
+
+switch (level) {
+    case CRITICAL:
+        sendAlertToAdmin();   // additional action for CRITICAL
+        // fall-through
+    case WARNING:
+        showWarningToUser();  // action for WARNING (and CRITICAL)
+        // fall-through
+    case INFO:
+        logMessage();         // base action for all
+        break;
+    default:
+        throw new IllegalArgumentException("Unknown level: " + level);
+}
+
+Here:
+- For `CRITICAL`, all three methods are executed.
+- For `WARNING` – `showWarningToUser()` and `logMessage()`.
+- For `INFO` – only `logMessage()`.
+
+If we used a comma-separated list of labels (`case CRITICAL, WARNING, INFO -> ...`),
+we would have to clutter the single branch with `if-else` statements, duplicate calls, or artificially separate the levels.
+Fall-through, on the other hand, avoids duplication and keeps the structure linear.
+
+### Why this is convenient specifically in Java
+
+In Java (unlike C/C++), fall-through is not used for "empty" transitions to common code,
+because that task is solved by the `case A, B ->` syntax. But when actions accumulate,
+fall-through provides a benefit in readability and maintainability.
+If, for example, a new level `ERROR` is added, which should do everything that `WARNING` does but without sending an alert to the admin,
+it is enough to insert a branch between `CRITICAL` and `WARNING` – and no other code needs to change.
+Without fall-through, you would have to rewrite the logic in all affected branches.
+
+Thus, a meaningful use of fall-through in modern Java is hierarchical accumulation of behavior,
+where each subsequent value extends the action of the previous one.
