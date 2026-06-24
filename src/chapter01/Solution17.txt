@@ -1,0 +1,138 @@
+1. For example, in the TimSort class from the java.util package, there is code that uses "break outer"
+
+outer:
+    while (true) {
+        int count1 = 0; // Number of times in a row that first run won
+        int count2 = 0; // Number of times in a row that second run won
+
+        /*
+         * Do the straightforward thing until (if ever) one run starts
+         * winning consistently.
+         */
+        do {
+            assert len1 > 1 && len2 > 0;
+            if (c.compare(a[cursor2], tmp[cursor1]) < 0) {
+                a[dest++] = a[cursor2++];
+                count2++;
+                count1 = 0;
+                if (--len2 == 0)
+                    break outer;
+            } else {
+                a[dest++] = tmp[cursor1++];
+                count1++;
+                count2 = 0;
+                if (--len1 == 1)
+                    break outer;
+            }
+        } while ((count1 | count2) < minGallop);
+
+        /*
+         * One run is winning so consistently that galloping may be a
+         * huge win. So try that, and continue galloping until (if ever)
+         * neither run appears to be winning consistently anymore.
+         */
+        do {
+            assert len1 > 1 && len2 > 0;
+            count1 = gallopRight(a[cursor2], tmp, cursor1, len1, 0, c);
+            if (count1 != 0) {
+                System.arraycopy(tmp, cursor1, a, dest, count1);
+                dest += count1;
+                cursor1 += count1;
+                len1 -= count1;
+                if (len1 <= 1) // len1 == 1 || len1 == 0
+                    break outer;
+            }
+            a[dest++] = a[cursor2++];
+            if (--len2 == 0)
+                break outer;
+
+            count2 = gallopLeft(tmp[cursor1], a, cursor2, len2, 0, c);
+            if (count2 != 0) {
+                System.arraycopy(a, cursor2, a, dest, count2);
+                dest += count2;
+                cursor2 += count2;
+                len2 -= count2;
+                if (len2 == 0)
+                    break outer;
+            }
+            a[dest++] = tmp[cursor1++];
+            if (--len1 == 1)
+                break outer;
+            minGallop--;
+        } while (count1 >= MIN_GALLOP | count2 >= MIN_GALLOP);
+        if (minGallop < 0)
+            minGallop = 0;
+        minGallop += 2;  // Penalize for leaving gallop mode
+    }  // End of "outer" loop
+
+2. Let's rewrite this code fragment without using "break outer".
+
+boolean continueCycle = true;
+while (continueCycle) {
+	int count1 = 0; // Number of times in a row that first run won
+    int count2 = 0; // Number of times in a row that second run won
+
+	/*
+     * Do the straightforward thing until (if ever) one run starts
+     * winning consistently.
+     */
+	do {
+		assert len1 > 1 && len2 > 0;
+		if (c.compare(a[cursor2], tmp[cursor1]) < 0) {
+			a[dest++] = a[cursor2++];
+			count2++;
+			count1 = 0;
+			if (--len2 == 0)
+				continueCycle = false;
+		} else {
+			a[dest++] = tmp[cursor1++];
+			count1++;
+			count2 = 0;
+			if (--len1 == 1)
+				continueCycle = false;
+		}
+	} while (continueCycle && (count1 | count2) < minGallop);
+
+	/*
+	 * One run is winning so consistently that galloping may be a
+	 * huge win. So try that, and continue galloping until (if ever)
+	 * neither run appears to be winning consistently anymore.
+	 */
+	 if (continueCycle) {
+		 do {
+			assert len1 > 1 && len2 > 0;
+			count1 = gallopRight(a[cursor2], tmp, cursor1, len1, 0, c);
+			if (count1 != 0) {
+				System.arraycopy(tmp, cursor1, a, dest, count1);
+				dest += count1;
+				cursor1 += count1;
+				len1 -= count1;
+				if (len1 <= 1) // len1 == 1 || len1 == 0
+					continueCycle = false;
+			}
+			a[dest++] = a[cursor2++];
+			if (--len2 == 0)
+				continueCycle = false;
+
+			count2 = gallopLeft(tmp[cursor1], a, cursor2, len2, 0, c);
+			if (count2 != 0) {
+				System.arraycopy(a, cursor2, a, dest, count2);
+				dest += count2;
+				cursor2 += count2;
+				len2 -= count2;
+				if (len2 == 0)
+					continueCycle = false;
+			}
+			a[dest++] = tmp[cursor1++];
+			if (--len1 == 1)
+				continueCycle = false;
+			minGallop--;
+		} while (continueCycle && (count1 >= MIN_GALLOP | count2 >= MIN_GALLOP));
+	}
+
+	if (continueCycle) {
+		if (minGallop < 0)
+			minGallop = 0;
+		minGallop += 2;  // Penalize for leaving gallop mode
+	}
+}
