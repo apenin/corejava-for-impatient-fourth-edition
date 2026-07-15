@@ -1,0 +1,7 @@
+The nextInt() method of the Scanner class is a mutator because it changes the state of the Scanner object on which
+it is invoked. In particular, when reading the next integer from the input stream, this method must at least change
+the position (the internal state of the Scanner object) from which it should read the next token from the input stream.
+The nextInt() method of the Random class is also a mutator, since it also changes the internal state of the Random
+object on which it is invoked (the so-called seed, the initial value of the pseudo-random number generator). If this
+value did not change with each call to nextInt(), the method would return the same integer every time, and such
+a random number generator would be of little use!
