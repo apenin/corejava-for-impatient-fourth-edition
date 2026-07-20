@@ -1,4 +1,4 @@
-package chapter02;
+package chapter02.solution03;
 
 public class Solution03 {
     private int someField;
