@@ -1,4 +1,4 @@
-package chapter01;
+package chapter01.solution10;
 
 import java.util.random.RandomGenerator;
 

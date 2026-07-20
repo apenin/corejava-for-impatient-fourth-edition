@@ -1,4 +1,4 @@
-package chapter01;
+package chapter01.solution18;
 
 import java.util.ArrayList;
 import java.util.Collections;

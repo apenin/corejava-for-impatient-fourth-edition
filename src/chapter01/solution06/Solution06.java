@@ -1,4 +1,4 @@
-package chapter01;
+package chapter01.solution06;
 
 import java.math.BigInteger;
 import java.util.Scanner;
