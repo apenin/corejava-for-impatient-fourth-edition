@@ -1,0 +1,3 @@
+IntelliJ IDEA offers convenient commands through the Generate context menu.
+This feature allows you to automatically generate constructors, getters, setters,
+toString(), equals(), hashCode() methods, and other useful methods.
