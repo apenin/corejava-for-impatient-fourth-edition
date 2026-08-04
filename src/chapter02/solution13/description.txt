@@ -1,0 +1,17 @@
+When running the javac HelloWorld.java command (while the HelloWorld.java file is actually located in a different
+directory from the one specified in the package declaration), it completes without errors, and the class file is
+created in the same directory where HelloWorld.java is located.
+
+The java HelloWorld command cannot find the HelloWorld.class file in the ch01\sec01 directory
+(as specified in the package for HelloWorld.java) and throws the error: Could not find or load main class HelloWorld.
+
+The javac -d . HelloWorld.java command will create the class file not in the current directory where
+HelloWorld.java resides, but will recreate the package structure defined in the package statement inside
+HelloWorld.java in that directory (where HelloWorld.java is located) and place HelloWorld.class there.
+
+SUMMARY:
+javac HelloWorld.java works because we explicitly specified the file to compile. At that moment, the compiler
+doesn't care whether the file path matches the package. However, the package affects class lookup when running
+via java. Therefore, if the package name does not match the actual directory structure where the class file resides,
+the java command cannot find the class file and will output an error. It is safer to use the javac -d command
+for compilation, because in this case it creates all the necessary directory structure itself.
