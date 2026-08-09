@@ -22,9 +22,9 @@ public class CsvTest {
         try (CSVParser parser = CSVParser.parse(new StringReader(csvData), format)) {
             for (CSVRecord record : parser) {
                 String name = record.get("name");
-                String age  = record.get("age");
+                String age = record.get("age");
                 String city = record.get("city");
-                System.out.printf("%s, %s лет, г. %s%n", name, age, city);
+                System.out.printf("%s, %s years, city %s%n", name, age, city);
             }
         }
     }
