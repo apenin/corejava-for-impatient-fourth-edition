@@ -1,0 +1,40 @@
+=== 1. Compilation ===
+
+Navigate to the directory containing Network.java and compile it:
+javac Network.java
+
+Two files will be created:
+* Network.class
+* Network$Member.class (bytecode of the inner class)
+
+=== 2. Examining the generated code with javap ===
+
+For the inner class, use the command:
+javap -private Network\$Member
+
+On Linux/Mac OS the $ symbol must be escaped with a backslash. On Windows you can simply write:
+javap -private Network$Member.class.
+
+=== 3. Where is the reference to the enclosing class visible? ===
+
+In the output you will see a synthetic (compiler-generated) field and a constructor parameter that implement
+the connection between the inner class and the enclosing class instance.
+
+Example output:
+Compiled from "Network.java"
+public class Network$Member {
+  final Network this$0;          // <-- reference to the enclosing class
+  private java.lang.String name;
+  private java.util.ArrayList friends;
+
+  public Network$Member(Network, java.lang.String);
+  ...
+}
+
+Thus, the reference to the enclosing Network class is represented by:
+* the field final Network this$0 – it holds the reference to the Network instance to which this Member object belongs;
+* the first parameter of the constructor Network$Member(Network, String) – through which this reference is passed
+  and stored in the this$0 field.
+
+It is through this$0 that the inner class can access members of the outer class (for example, members.remove(this)
+inside deactivate() works because it implicitly uses Network.this.members).
