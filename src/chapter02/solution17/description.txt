@@ -1,0 +1,2 @@
+The Node class should be a static nested class because it has no need to access
+the state of the enclosing Queue object that created it.
