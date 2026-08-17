@@ -1,0 +1,2 @@
+The nested Iterator class should not be static (i.e., it should be an inner class),
+because it needs access to the state of the outer class (head, tail) in order to work correctly.
