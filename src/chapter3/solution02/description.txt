@@ -1,0 +1,2 @@
+A cast to `Employee` is necessary because the `largest` method can return an instance of any class that implements the `Measurable` interface.
+In this example, we need an `Employee` instance in order to call the `name()` method and find out the employee's name.
