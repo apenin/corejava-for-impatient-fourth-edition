@@ -1,0 +1,5 @@
+Supertypes of String: String, Serializable, Comparable<String>, CharSequence, Constable, ConstantDesc, Object.
+
+Supertypes of Scanner: Scanner, Iterator<String>, Closeable, AutoCloseable, Object.
+
+Supertypes of ImageOutputStream: ImageOutputStream, ImageInputStream, DataInput, Closeable, AutoCloseable, DataOutput, Object.
