@@ -1,0 +1,16 @@
+public class SquareSequence implements IntSequence {
+    private int i;
+
+    public boolean hasNext() {
+        return true;
+    }
+
+    public int next() {
+        i++;
+        return i * i;
+    }
+}
+
+The original `SquareSequence` class returns an `int` value from its `next` method. However, as soon as `i * i` exceeds
+the allowable storage range for `int`, this does not cause an error; instead, a truncated square value that can fit
+into an `int` is returned. This value clearly does not continue the infinite sequence of squares of integers.
