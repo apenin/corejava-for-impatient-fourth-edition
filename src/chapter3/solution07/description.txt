@@ -1,0 +1,19 @@
+Because in Java 8 the `forEachRemaining` method was added to the `Iterator` interface, and it is a `default` method,
+this does not break old code written for Java 7. If this method had not been declared as `default`, it would have broken
+existing code of classes that implemented all methods of the `Iterator` interface but were unaware at that moment of
+the existence of the new `forEachRemaining` method. Thus, code written for Java 7 will still compile in Java 8.
+
+If we package our class written for Java 7 into a JAR file without recompiling it beforehand, it can be run without
+problems in Java 8, since later versions of Java maintain compatibility with older versions.
+
+`forEachRemaining` was added to the `Iterator` interface as a default method.
+Even if your class was compiled in Java 7 and not recompiled, when running on Java 8 it will inherit this default
+implementation from the interface. Therefore, calling `sequence.forEachRemaining(...)` will not cause an error; instead,
+the standard code will be executed, which uses your `hasNext()` and `next()` methods to iterate over the remaining elements.
+
+Our class implements the `remove()` method in such a way that it does nothing. The `remove()` method existed in the
+`Iterator` interface before Java 8, but then it was abstract, and therefore required implementation, which is done
+in our class. In Java 8, it became a `default` method that throws `UnsupportedOperationException` by default.
+This does not conflict with the existing implementation of the `remove()` method in our class.
+Therefore, when delivering the JAR file with our class to Java 8 and subsequently calling the `remove()` method,
+our version of the method will be called (which does nothing, i.e., `UnsupportedOperationException` will not be thrown).
