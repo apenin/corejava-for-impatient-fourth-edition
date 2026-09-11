@@ -1,8 +1,9 @@
-package chapter3.solution04;
+package chapter03.solution05;
 
-public class IntSequenceOfMethodDemo {
+public class IntSequenceConstantMethodDemo {
     public static void main(String[] args) {
-        IntSequence sequence = IntSequence.of(3, 1, 4, 1, 5, 9);
+        IntSequence sequence = IntSequence.constant(1);
+
         while (sequence.hasNext()) {
             System.out.println(sequence.next());
         }

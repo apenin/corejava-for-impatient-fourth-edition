@@ -1,4 +1,4 @@
-package chapter3.solution06;
+package chapter03.solution06;
 
 public class SquareSequenceDemo {
     public static void main(String[] args) {

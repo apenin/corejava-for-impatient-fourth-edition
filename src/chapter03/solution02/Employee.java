@@ -1,6 +1,6 @@
-package chapter3.solution02;
+package chapter03.solution02;
 
-import chapter3.solution01.Measurable;
+import chapter03.solution01.Measurable;
 
 public record Employee(String name, double salary) implements Measurable {
 

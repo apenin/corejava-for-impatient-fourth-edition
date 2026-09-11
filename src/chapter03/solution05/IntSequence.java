@@ -1,4 +1,4 @@
-package chapter3.solution05;
+package chapter03.solution05;
 
 public interface IntSequence {
     default boolean hasNext() {

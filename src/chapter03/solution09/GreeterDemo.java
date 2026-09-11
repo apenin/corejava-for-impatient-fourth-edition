@@ -1,4 +1,4 @@
-package chapter3.solution09;
+package chapter03.solution09;
 
 public class GreeterDemo {
     public static void main(String[] args) {

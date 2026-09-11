@@ -1,8 +1,8 @@
-package chapter3.solution07;
+package chapter03.solution04;
 
-public class DigitSequenceDemo {
+public class IntSequenceOfMethodDemo {
     public static void main(String[] args) {
-        DigitSequence sequence = new DigitSequence(1234);
+        IntSequence sequence = IntSequence.of(3, 1, 4, 1, 5, 9);
         while (sequence.hasNext()) {
             System.out.println(sequence.next());
         }

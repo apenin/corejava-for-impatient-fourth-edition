@@ -1,4 +1,4 @@
-package chapter3.solution10;
+package chapter03.solution10;
 
 public class RunnableDemo {
     public static void runTogether(Runnable... tasks) {

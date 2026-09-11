@@ -1,4 +1,4 @@
-package chapter3.solution01;
+package chapter03.solution01;
 
 public record Employee(String name, double salary) implements Measurable {
 

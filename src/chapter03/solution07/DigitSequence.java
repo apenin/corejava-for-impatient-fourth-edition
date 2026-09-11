@@ -1,4 +1,4 @@
-package chapter3.solution07;
+package chapter03.solution07;
 
 import java.util.Iterator;
 

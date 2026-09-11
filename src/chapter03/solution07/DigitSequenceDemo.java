@@ -1,9 +1,8 @@
-package chapter3.solution05;
+package chapter03.solution07;
 
-public class IntSequenceConstantMethodDemo {
+public class DigitSequenceDemo {
     public static void main(String[] args) {
-        IntSequence sequence = IntSequence.constant(1);
-
+        DigitSequence sequence = new DigitSequence(1234);
         while (sequence.hasNext()) {
             System.out.println(sequence.next());
         }

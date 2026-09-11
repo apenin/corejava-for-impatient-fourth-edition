@@ -1,4 +1,4 @@
-package chapter3.solution01;
+package chapter03.solution01;
 
 public interface Measurable {
     double getMeasure();
