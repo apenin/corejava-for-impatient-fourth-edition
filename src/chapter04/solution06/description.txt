@@ -1,0 +1,3 @@
+Because `Item.equals` uses `instanceof`, while `DiscountedItem.equals` ignores the discount when comparing with an `Item`,
+the `hashCode`/`equals` contract is violated.
+This is a deliberate compromise that demonstrates the problem with using `instanceof` in `equals`.
