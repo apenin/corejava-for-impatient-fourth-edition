@@ -1,0 +1,6 @@
+1. Enumerating the methods of int[].class shows only Object methods,
+since an array has no declared methods in the reflection model.
+
+2. The incorrectly described method is `clone()`: according to the JLS it is `public` and returns `T[]`,
+but reflection either does not find it at all for an array, or describes it as `protected Object clone()` from `Object`.
+This is a discrepancy between the language specification and the reflection API.
