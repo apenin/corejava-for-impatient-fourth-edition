@@ -1,0 +1,20 @@
+1. Security
+Method — the name and signature are checked only at runtime.
+
+DoubleFunction<Object> — the signature is checked by the compiler.
+
+2. Efficiency
+Method.invoke() — on each call, access checks are performed, arguments are boxed into an `Object[]`,
+the result is unboxed, and `InvocationTargetException` is handled. This is tens of times slower than a direct call.
+Even after JIT optimizations, `invoke` remains expensive.
+
+DoubleFunction is an ordinary functional interface. A lambda/method reference compiles to a direct call,
+which the JIT can easily inline. The overhead is minimal and often reduced to zero.
+
+3. Convenience
+Using `Method` is justified when the method is selected dynamically by a string: for example,
+from a configuration file, a plugin, or user input. In that case, reflection is indispensable.
+
+DoubleFunction is more convenient and cleaner when the method is known at compile time: there are no checked exceptions,
+the code is shorter, it reads better, and the IDE provides type hints.
+That is why modern Java prefers functional interfaces and leaves reflection for frameworks and utilities.
