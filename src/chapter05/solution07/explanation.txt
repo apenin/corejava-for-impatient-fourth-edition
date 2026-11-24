@@ -1,0 +1,5 @@
+The first option is safer: it guarantees that if an exception is thrown in the constructor of any resource,
+all resources already created will be closed.
+
+The second option leaves a leak window: if the creation of the second resource fails, the first one will remain open.
+That is why it is recommended to declare resources directly in the try-with-resources header.
